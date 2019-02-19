@@ -16,20 +16,6 @@ function forEachFileInDir(dir, callback) {
         if (err) callback(err);
         data = JSON.parse(data);
         return callback(null, data);
-      })
-    })
-  })
-}
-
-function seedCompanies() {
-  fs.readdir(companyDir, function(err, files) {
-    if (err) throw err;
-    files.forEach((file) => {
-      fs.readFile(`${dir}/${file}`, 'utf8', function(err, data) {
-        let company = JSON.parse(data).bestMatches[0];
-        let ticker = company['1. symbol'];
-        let name = company['2. name'];
-        Company.create({ name, ticker })
       });
     });
   });
@@ -37,48 +23,52 @@ function seedCompanies() {
 
 function mapToRecentPrices(prices, companyId, limit) {
   let allPrices = _.map(prices, (data, date, dailyPrices) => {
-    let price = parseFloat(dailyPrices[date]['4. close'])
+    let price = parseFloat(dailyPrices[date]['4. close']);
     return { date, price, companyId }
   });
   return _.filter(allPrices, (price) => {
-    let date = new Date(price.date)
+    let date = new Date(price.date);
     return date >= limit;
-  })
+  });
+}
+
+function seedCompanies() {
+  forEachFileInDir(companyDir, function(err, data) {
+    if (err) throw err;
+    let company = data.bestMatches[0];
+    let ticker = company['1. symbol'];
+    let name = company['2. name'];
+    Company.create({ name, ticker });
+  });
 }
 
 function seedDailyPrices() {
-  fs.readdir(dailyDir, function(err, files) {
-    files.forEach((file) => {
-      fs.readFile(`${dir}/${file}`, 'utf8', function(err, data) {
-        data = JSON.parse(data);
-        let ticker = data['Meta Data']['2. Symbol'];
-        let allPrices = data["Time Series (Daily)"];
-        // get the company associated with that ticker
-        Company.findOne({where: { ticker }})
-        .then((company) => {
-          let companyId = company.id;
-          let recentPrices = mapToRecentPrices(allPrices, companyId, dailyLimit);
-          DailyPrice.bulkCreate(recentPrices);
-        });
-      });
+  forEachFileInDir(dailyDir, function(err, data) {
+    let ticker = data['Meta Data']['2. Symbol'];
+    let allPrices = data["Time Series (Daily)"];
+    Company.findOne({where: { ticker }})
+    .then((company) => {
+      let companyId = company.id;
+      let recentPrices = mapToRecentPrices(allPrices, companyId, dailyLimit);
+      DailyPrice.bulkCreate(recentPrices);
     });
   });
 }
 
 function seedFiveMinPrices() {
-  fs.readdir(fiveMinDir, function(err, files) {
-    files.forEach((file) => {
-      fs.readFile()
-    })
-  })
+  forEachFileInDir(fiveMinDir, function(err, data) {
+    let ticker = data['Meta Data']['2. Symbol'];
+    let allPrices = data["Time Series (5min)"];
+    Company.findOne({where: { ticker }})
+    .then((company) => {
+      let companyId = company.id;
+      let recentPrices = mapToRecentPrices(allPrices, companyId, fiveMinLimit);
+      FiveMinPrice.bulkCreate(recentPrices);
+    });
+  });
 }
 
-DailyPrice.findAll({where: {companyId: 2}})
-.then((result) => {
-  console.log(result);
+sequelize.sync()
+.then(() => {
+  seedCompanies();
 })
-
-// sequelize.sync()
-// .then(() => {
-//   seedDailyPrices();
-// })
