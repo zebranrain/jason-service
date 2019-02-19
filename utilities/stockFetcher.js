@@ -3,7 +3,7 @@ const key = require('../api-keys/alphaVantage');
 const fs = require('fs');
 const path = require('path');
 const _ = require('underscore');
-let url = 'https://www.alphavantage.co/query?';
+let baseUrl = `https://www.alphavantage.co/query?&apikey=${key}`;
 
 const tickers = [
   "ATVI",
@@ -119,7 +119,7 @@ const intervals = [
 
 function priceFetcher(ticker, timeSeries, url, interval) {
   let folder = folderMapper(timeSeries, interval);
-  url += `function=${timeSeries}&symbol=${ticker}&apikey=${key}&outputsize=full`;
+  url += `function=${timeSeries}&symbol=${ticker}&outputsize=full`;
   if (timeSeries === 'TIME_SERIES_INTRADAY') {
     url += `&interval=${interval}`;
   }
@@ -161,4 +161,23 @@ function getAllPrices(url) {
   })
 }
 
-getAllPrices(url);
+function fetchCompany(ticker) {
+  let folder = path.join(__dirname, '../data/company');
+  let url = baseUrl + `&function=SYMBOL_SEARCH&keywords=${ticker}`;
+  request(url, function(err, response, body) {
+    if (err) throw err;
+    fs.writeFile(`${folder}/${ticker}.txt`, body, function(err) {
+      if (err) throw err;
+    });
+  });
+}
+
+function getAllCompanies() {
+  let timeout = 0;
+  tickers.forEach((ticker) => {
+    setTimeout(() => {
+      fetchCompany(ticker)
+    }, timeout);
+    timeout += 13000;
+  });
+}
