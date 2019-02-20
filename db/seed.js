@@ -1,5 +1,6 @@
 const { Company, DailyPrice, FiveMinPrice, sequelize } = require('./models.js');
 const fs = require('fs');
+const { promisify } = require('util');
 const path = require('path');
 const _ = require('underscore');
 const companyDir = path.join(__dirname, '../data/company');
@@ -7,6 +8,8 @@ const dailyDir = path.join(__dirname, '../data/daily');
 let fiveMinDir = path.join(__dirname, '../data/five-min');
 const dailyLimit = new Date("2014-01-01");
 const fiveMinLimit = new Date("2019-02-03");
+const readdir = promisify(fs.readdir);
+const readFile = promisify(fs.readFile);
 
 function forEachFileInDir(dir, callback) {
   fs.readdir(dir, function(err, files) {
@@ -32,18 +35,29 @@ function mapToRecentPrices(prices, companyId, limit) {
   });
 }
 
-function seedCompanies() {
-  forEachFileInDir(companyDir, function(err, data) {
-    if (err) throw err;
+async function generateCompaniesFromFiles() {
+  const files = await readdir(companyDir);
+  const companies = await _.map(files, async file => {
+    let data = await readFile(`${companyDir}/${file}`, 'utf8');
+    data = JSON.parse(data);
     let company = data.bestMatches[0];
     let ticker = company['1. symbol'];
     let name = company['2. name'];
-    Company.create({ name, ticker });
+    return { ticker, name }
+  })
+  return Promise.all(companies);
+}
+
+async function seedCompanies() {
+  let companies = generateCompaniesFromFiles()
+  .then((companies) => {
+    Company.bulkCreate(companies);
   });
 }
 
-function seedDailyPrices() {
+async function seedDailyPrices() {
   forEachFileInDir(dailyDir, function(err, data) {
+    if (err) throw err;
     let ticker = data['Meta Data']['2. Symbol'];
     let allPrices = data["Time Series (Daily)"];
     Company.findOne({where: { ticker }})
@@ -55,8 +69,9 @@ function seedDailyPrices() {
   });
 }
 
-function seedFiveMinPrices() {
+async function seedFiveMinPrices() {
   forEachFileInDir(fiveMinDir, function(err, data) {
+    if (err) throw err;
     let ticker = data['Meta Data']['2. Symbol'];
     let allPrices = data["Time Series (5min)"];
     Company.findOne({where: { ticker }})
@@ -69,6 +84,9 @@ function seedFiveMinPrices() {
 }
 
 sequelize.sync()
+// .then(() => {
+//   seedCompanies()
+// })
 .then(() => {
-  seedCompanies();
+  seedFiveMinPrices();
 })
