@@ -1,55 +1,75 @@
 const { Company, DailyPrice, FiveMinPrice } = require('./models.js');
+const _ = require('underscore');
 
-// inputs: ticker, timeframe
-// outputs: array of objects that are date/price relationships
+/* An object used to map a timeframe to its appropriate handler */
+
+const functionMap = {
+  day: retrieveDailyPrices,
+  week: retrieveWeeklyPrices,
+  month: retrieveMonthlyPrices,
+  quarter: retrieveQuarterlyPrices,
+  year: retrieveYearlyPrices,
+  fiveYear: retrieveFiveYearPrices
+}
+
+/* A 'delegator' function, which receives a company ticker
+and a desired timeframe, and returns an array of date/price objects.
+All queries assume that today's date is Feb 8, 2019. */
 
 function retrievePriceHistory(ticker, timeframe) {
-  // find the company id associated with the ticker
   return Company.findOne({where: { ticker }})
   .then((company) => {
     let { id } = company;
-    // if the timeframe is daily, invoke
-    if (timeframe === 'year') {
-      return retrieveYearlyPrices(id)
-    }
+    return functionMap[timeframe](id);
   });
-  // based on the timeframe, invoke the appropriate function with that ticker
-  // return the array of objects
 }
 
 function retrieveDailyPrices(companyId) {
-  // perform a query on the fiveminprices database using the provided id
-  // assume it's 5:00 PM, so return the last full day (9:30 AM - 4:00 PM)
+  const startDate = new Date('2019-02-08T00:00:00.000Z');
+  const endDate = new Date('2019-02-09T00:00:00.000Z');
+  return FiveMinPrice.findAll({where: { companyId, date: {$between: [startDate, endDate]}}});
 }
 
-function retrieveWeeklyPrices(id) {
-  // perform a query on the fiveminprices database using provided id
-  // assume it's 5:00 PM on Friday, Feb 1 so show back through 9:30 AM on Jan 26
+function retrieveWeeklyPrices(companyId) {
+  const startDate = new Date('2019-02-01T00:00:00.000Z');
+  const endDate = new Date('2019-02-09T00:00:00.000Z');
+  return FiveMinPrice.findAll({where: { companyId, date: {$between: [startDate, endDate]}}})
+  .then((prices) => {
+    return _.filter(prices, function(price, index) {
+      let date = new Date(price.date);
+      return date.getMinutes() % 10 === 0;
+    });
+  });
 }
 
-function retrieveMonthlyPrices(id) {
-  // perform a query on the daily database using provided id
-  // assume it's 5:00 PM on Friday, Feb 1 so show back through Jan 2 2019
+function retrieveMonthlyPrices(companyId) {
+  const startDate = new Date('01/09/2019');
+  const endDate = new Date('02/08/2019');
+  return DailyPrice.findAll({where: { companyId, date: {$between: [startDate, endDate]}}});
 }
 
-function retrieveQuarterlyPrices(id) {
-  // perform a query on the daily database using provided id
-  // assume it's 5:00 PM on Friday, Feb 1 so show back through Nov 2 2018
+function retrieveQuarterlyPrices(companyId) {
+  const startDate = new Date('11/09/2018');
+  const endDate = new Date('02/08/2019');
+  return DailyPrice.findAll({where: { companyId, date: {$between: [startDate, endDate]}}});
 }
 
 function retrieveYearlyPrices(companyId) {
-  // perform a query on the daily database using provided id
-  // assume it's 5:00 PM on Friday, Feb 1 so show back through Feb 2 2018
-  const startDate = new Date('02/02/2018');
-  const endDate = new Date('02/01/2019');
+  const startDate = new Date('02/09/2018');
+  const endDate = new Date('02/08/2019');
+  return DailyPrice.findAll({where: { companyId, date: {$between: [startDate, endDate]}}});
+}
+
+function retrieveFiveYearPrices(companyId) {
+  const startDate = new Date('02/09/2018');
+  const endDate = new Date('02/08/2019');
   return DailyPrice.findAll({where: { companyId, date: {$between: [startDate, endDate]}}})
+  .then((prices) => {
+    return _.filter(prices, function(price) {
+      let date = new Date(price.date);
+      return date.getDay() === 4;
+    });
+  });
 }
-
-function retrieveFiveYearPrices(id) {
-  // perform a query on the daily database using provided id
-  // assume it's 5:00 PM on Friday, Feb 1 so show back through Feb 2 2014
-}
-
-retrievePriceHistory('AAPL', 'year');
 
 module.exports = retrievePriceHistory;

@@ -7,11 +7,9 @@ const retrievePriceHistory = require('./db/queries.js');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/test', function(req, res) {
-  retrievePriceHistory('AAPL', 'year')
-  .then((prices) => {
-    res.end(JSON.stringify(prices));
-  })
+app.get('/prices', async function(req, res) {
+  let { ticker, timeframe } = req.query;
+  res.json(await retrievePriceHistory(ticker, timeframe));
 });
 
 app.listen(port, () => {console.log(`Listening on port ${port}!`)});
