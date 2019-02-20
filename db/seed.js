@@ -27,7 +27,7 @@ function forEachFileInDir(dir, callback) {
 function mapToRecentPrices(prices, companyId, limit) {
   let allPrices = _.map(prices, (data, date, dailyPrices) => {
     let price = parseFloat(dailyPrices[date]['4. close']);
-    return { date, price, companyId }
+    return { date, price, companyId };
   });
   return _.filter(allPrices, (price) => {
     let date = new Date(price.date);
@@ -43,15 +43,15 @@ async function generateCompaniesFromFiles() {
     let company = data.bestMatches[0];
     let ticker = company['1. symbol'];
     let name = company['2. name'];
-    return { ticker, name }
-  })
+    return { ticker, name };
+  });
   return Promise.all(companies);
 }
 
 async function seedCompanies() {
   let companies = generateCompaniesFromFiles()
   .then((companies) => {
-    Company.bulkCreate(companies);
+    return Company.bulkCreate(companies);
   });
 }
 
@@ -64,7 +64,7 @@ async function seedDailyPrices() {
     .then((company) => {
       let companyId = company.id;
       let recentPrices = mapToRecentPrices(allPrices, companyId, dailyLimit);
-      DailyPrice.bulkCreate(recentPrices);
+      return DailyPrice.bulkCreate(recentPrices);
     });
   });
 }
@@ -78,15 +78,12 @@ async function seedFiveMinPrices() {
     .then((company) => {
       let companyId = company.id;
       let recentPrices = mapToRecentPrices(allPrices, companyId, fiveMinLimit);
-      FiveMinPrice.bulkCreate(recentPrices);
+      return FiveMinPrice.bulkCreate(recentPrices);
     });
   });
 }
 
 sequelize.sync()
-// .then(() => {
-//   seedCompanies()
-// })
-.then(() => {
-  seedFiveMinPrices();
-})
+.then(seedCompanies)
+.then(seedDailyPrices)
+.then(seedFiveMinPrices);
