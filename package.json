@@ -8,6 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
+    "test": "jest",
     "start": "nodemon server/index.js"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
+    "jest": "^24.1.0",
     "path": "^0.12.7",
     "pg": "^7.8.0",
     "pg-hstore": "^2.3.2",
