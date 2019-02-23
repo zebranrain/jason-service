@@ -19,4 +19,7 @@ const FiveMinPrice = sequelize.define('fiveminprice', {
 Company.hasMany(DailyPrice);
 DailyPrice.belongsTo(Company);
 
+Company.hasMany(FiveMinPrice);
+FiveMinPrice.belongsTo(Company);
+
 module.exports = { Company, DailyPrice, FiveMinPrice, sequelize };
