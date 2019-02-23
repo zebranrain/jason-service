@@ -2,13 +2,15 @@ import React from 'react';
 import Chart from './Chart.jsx';
 import axios from 'axios';
 import Timeframes from './Timeframes.jsx';
+import Header from './Header.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       pricepoints: [],
-      timeframe: 'day'
+      timeframe: 'day',
+      company: ''
     };
     this.changeTimeframe = this.changeTimeframe.bind(this);
     this.getPrices = this.getPrices.bind(this);
@@ -21,9 +23,12 @@ class App extends React.Component {
       params: { ticker, timeframe }
     })
     .then(function(response) {
-      let pricepoints = context.formatPrices(response.data);
+      console.log(response);
+      let pricepoints = context.formatPrices(response.data.prices);
+      let company = response.data.name;
       context.setState({
-        pricepoints
+        pricepoints,
+        company
       })
     });
   }
@@ -59,7 +64,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Chart pricepoints={this.state.pricepoints}/>
+        <Header company={this.state.company}/>
+        <Chart pricepoints={this.state.pricepoints} company={this.state.company}/>
         <Timeframes changeTimeframe={this.changeTimeframe}/>
       </div>
     )

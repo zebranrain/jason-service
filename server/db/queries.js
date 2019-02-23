@@ -18,15 +18,16 @@ All queries assume that today's date is Feb 8, 2019. */
 
 function retrievePriceHistory(ticker, timeframe) {
   return Company.findOne({where: { ticker }})
-  .then((company) => {
+  .then( async (company) => {
     if (!company) {
       throw new Error('companyNotFound');
     }
     if (!functionMap[timeframe]) {
       throw new Error('timeframeNotFound')
     }
-    let { id } = company;
-    return functionMap[timeframe](id);
+    let { id, name } = company;
+    let prices = await functionMap[timeframe](id);
+    return { name, prices }
   })
 }
 

@@ -17,10 +17,10 @@ class Chart extends React.Component {
   }
 
   render() {
-    const { pricepoints } = this.props;
+    const { pricepoints, company } = this.props;
     return (
       <div>
-      <Price price={this.state.crosshairValues[0].y}/>
+      <Price price={this.state.crosshairValues[0].y} company={company}/>
       <XYPlot
       onMouseLeave={() => this.setState({crosshairValues: [{}]})}
         width = {1000}
