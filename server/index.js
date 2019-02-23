@@ -12,9 +12,10 @@ const translateError = {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static('./client/public'));
+app.use('/:ticker', express.static('./client/public'));
 
-app.get('/prices', async function(req, res) {
+app.get('/api/prices', async function(req, res) {
+  console.log('Get request received!')
   let { ticker, timeframe } = req.query;
   retrievePriceHistory(ticker, timeframe)
     .then(prices => res.json(prices))

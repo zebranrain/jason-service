@@ -11,16 +11,17 @@ class App extends React.Component {
       timeframe: 'day'
     };
     this.changeTimeframe = this.changeTimeframe.bind(this);
+    this.getPrices = this.getPrices.bind(this);
   }
 
-  getPrices(ticker, timeframe) {
+  getPrices(timeframe) {
     let context = this;
-    axios.get('/prices', {
+    let { ticker } = this.props.match.params;
+    axios.get('/api/prices', {
       params: { ticker, timeframe }
     })
     .then(function(response) {
       let pricepoints = context.formatPrices(response.data);
-      console.log(pricepoints);
       context.setState({
         pricepoints
       })
@@ -37,11 +38,9 @@ class App extends React.Component {
       '1Y': 'year',
       '5Y': 'fiveYear'
     }
-
-    let timeframe = map[event.target.innerText];
-
-    this.getPrices('AAPL', timeframe)
-
+    this.setState({timeframe: map[event.target.innerText]}, () => {
+      this.getPrices(this.state.timeframe)
+    });
   }
 
   formatPrices(pricepoints) {
@@ -55,7 +54,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getPrices('AAPL', 'day');
+    this.getPrices(this.state.timeframe);
   }
   render() {
     return (
