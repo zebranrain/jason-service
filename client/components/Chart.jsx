@@ -1,23 +1,74 @@
 import React from 'react';
-import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries} from 'react-vis';
-import '../styles/styles.css'
+import { XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, Crosshair} from 'react-vis';
+import '../styles/styles.scss';
+import axios from 'axios';
+import Price from './Price.jsx';
+import Timeframes from './Timeframes.jsx';
 
-const Chart = (props) => {
-  return (
+class Chart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pricepoints: [],
+      crosshairValues: [{}]
+    };
+    this.slider = this.slider.bind(this);
+  }
+
+  slider(value, event) {
+    this.setState({crosshairValues: [value]});
+  }
+
+  formatPrices(pricepoints) {
+    return pricepoints.map((pricepoint) => {
+      let date = new Date(pricepoint.date).getTime();
+      return {
+        x: date,
+        y: pricepoint.price
+      }
+    })
+  }
+
+  getPrices() {
+    let context = this;
+    axios.get('/prices', {
+      params: {
+        ticker: 'AAPL',
+        timeframe: 'day'
+      }
+    })
+    .then(function(response) {
+      let pricepoints = context.formatPrices(response.data);
+      context.setState({
+        pricepoints
+      })
+    });
+  }
+
+  componentDidMount() {
+    this.getPrices();
+  }
+
+  render() {
+    return (
+      <div>
+      <Price price={this.state.crosshairValues[0].y}/>
       <XYPlot
-          width={300}
-          height={300}>
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <XAxis />
-          <YAxis />
-          <LineSeries
-              data={[
-                  {x: 1, y: 4},
-                  {x: 5, y: 2},
-                  {x: 15, y: 6}
-              ]}/>
-      </XYPlot>
-  );
+      onMouseLeave={() => this.setState({crosshairValues: [{}]})}
+        width = {1000}
+        height = {300} >
+        <LineSeries
+          data={this.state.pricepoints} onNearestX={this.slider}/>
+        <Crosshair values={this.state.crosshairValues}>
+        <div style={{background: 'black'}}>
+          <p>{this.state.crosshairValues[0].x}</p>
+        </div>
+        </Crosshair>
+        </XYPlot>
+      </div>
+    );
+  }
 }
 export default Chart;
+
+
