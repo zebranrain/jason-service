@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3001;
 const bodyParser = require('body-parser');
-const retrievePriceHistory = require('../db/queries.js');
+const retrievePriceHistory = require('./db/queries.js');
 
 const translateError = {
   companyNotFound: { code: 404, message: "Sorry! We don't have price records for that company." },
@@ -11,6 +11,8 @@ const translateError = {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.static('./client/public'));
 
 app.get('/prices', async function(req, res) {
   let { ticker, timeframe } = req.query;
