@@ -49,7 +49,7 @@ async function generateCompaniesFromFiles() {
 }
 
 async function seedCompanies() {
-  let companies = generateCompaniesFromFiles()
+  generateCompaniesFromFiles()
   .then((companies) => {
     return Company.bulkCreate(companies);
   });

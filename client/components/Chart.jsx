@@ -1,6 +1,6 @@
 import React from 'react';
 import { XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, Crosshair} from 'react-vis';
-import '../styles/styles.scss';
+// import '../styles/styles.scss';
 import Price from './Price.jsx';
 
 class Chart extends React.Component {

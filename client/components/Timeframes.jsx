@@ -10,7 +10,7 @@ function Timeframes({ changeTimeframe }) {
       <a>1Y</a>
       <a>5Y</a>
     </nav>
-  )
+  );
 }
 
 export default Timeframes;

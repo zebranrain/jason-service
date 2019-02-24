@@ -23,7 +23,6 @@ class App extends React.Component {
       params: { ticker, timeframe }
     })
     .then(function(response) {
-      console.log(response);
       let pricepoints = context.formatPrices(response.data.prices);
       let company = response.data.name;
       context.setState({
