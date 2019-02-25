@@ -1,8 +1,8 @@
 import React from 'react';
 import Chart from './Chart.jsx';
-import axios from 'axios';
 import Timeframes from './Timeframes.jsx';
 import Header from './Header.jsx';
+import stockPrices from '../services/stockPrices.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,18 +17,13 @@ class App extends React.Component {
   }
 
   getPrices(timeframe) {
-    let context = this;
     let { ticker } = this.props.match.params;
-    axios.get('/api/prices', {
-      params: { ticker, timeframe }
-    })
-    .then(function(response) {
-      let pricepoints = context.formatPrices(response.data.prices);
-      let company = response.data.name;
-      context.setState({
-        pricepoints,
-        company
-      })
+    let data = stockPrices(ticker, timeframe)
+    let pricepoints = this.formatPrices(data.prices);
+    let company = data.name;
+    context.setState({
+      pricepoints,
+      company
     });
   }
 

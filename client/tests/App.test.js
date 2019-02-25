@@ -3,6 +3,8 @@ import Enzyme, { shallow, mount } from 'enzyme';
 import App from '../components/App.jsx';
 import Adapter from 'enzyme-adapter-react-16';
 
+jest.mock('../../__mocks__/getPrices.js');
+
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("Timeframes component", () => {
