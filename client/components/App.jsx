@@ -16,12 +16,12 @@ class App extends React.Component {
     this.getPrices = this.getPrices.bind(this);
   }
 
-  getPrices(timeframe) {
+  async getPrices(timeframe) {
     let { ticker } = this.props.match.params;
-    let data = stockPrices(ticker, timeframe)
+    let data = await stockPrices(ticker, timeframe)
     let pricepoints = this.formatPrices(data.prices);
     let company = data.name;
-    context.setState({
+    this.setState({
       pricepoints,
       company
     });
