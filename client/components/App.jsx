@@ -61,7 +61,7 @@ class App extends React.Component {
       <div>
         <Header company={this.state.company}/>
         <Chart pricepoints={this.state.pricepoints} company={this.state.company}/>
-        <Timeframes changeTimeframe={this.changeTimeframe}/>
+        <Timeframes changeTimeframe={this.changeTimeframe} timeframe={this.state.timeframe}/>
       </div>
     )
   }

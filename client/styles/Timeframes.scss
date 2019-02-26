@@ -3,12 +3,19 @@
 $open-sans: 'Open Sans', sans-serif;
 
 .timeframes {
+  padding: 5px 5px 5px 0px;
   font-family: $open-sans;
-  height: 50px;
+  border-width: 2px;
+  border-bottom-width:2px;
+  border-bottom-color:black;
+  border-bottom-style: solid;
+  width: 1000px;
+  font-size: 13px;
 }
 
 .timeframe {
-  padding: 5px;
+  padding: 5px 5px 5px 0px;
+  margin: 10px 10px 10px 0px;
 }
 
 .timeframe:hover {
@@ -16,7 +23,24 @@ $open-sans: 'Open Sans', sans-serif;
   cursor: pointer;
 }
 
-// add onhover
-// add onclick
+.selected-timeframe {
+  padding: 5px 5px 5px 0px;
+  margin: 10px 10px 10px 0px;
+  color: blue;
+  border-bottom-width:2px;
+  border-bottom-color:green;
+  border-bottom-style: solid
+}
+
+// change line color
+// change font color
+// change hover color
+// change border color
+// on mouseleave, set state to most recent price
+// on mouseleave, remove crosshair
+// animate price
+// add price change info ($ and % change since beginning of period)
+// format dates
+
 
 
