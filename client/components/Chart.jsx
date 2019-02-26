@@ -1,7 +1,8 @@
 import React from 'react';
-import { XYPlot, LineSeries, Crosshair} from 'react-vis';
+import { XYPlot, LineSeries, Crosshair, XAxis, YAxis } from 'react-vis';
 import '../styles/Chart.scss';
 import Price from './Price.jsx';
+import moment from 'moment';
 
 class Chart extends React.Component {
   constructor(props) {
@@ -26,6 +27,17 @@ class Chart extends React.Component {
     return '';
   }
 
+  convertDateToString(timeInMilliseconds) {
+    let { timeframe } = this.props;
+    if (timeframe === 'day') {
+      return `${moment(timeInMilliseconds).format('h:mm a')} ET`;
+    }
+    if (timeframe === 'week') {
+      return `${moment(timeInMilliseconds).format('h:mm a, MMM D')} ET`;
+    }
+    return moment(timeInMilliseconds).format('MMM D, YYYY');
+  }
+
   render() {
     const { pricepoints, company } = this.props;
     const price = this.setPrice(pricepoints);
@@ -35,11 +47,13 @@ class Chart extends React.Component {
       <XYPlot
       onMouseLeave={() => this.setState({crosshairValues: [{}]})}
         width = {1000}
-        height = {300} >
+        height = {300}>
+        <XAxis title="X Axis" />
+        <YAxis title="Y Axis" />
         <LineSeries data={pricepoints} onNearestX={this.slider}/>
         <Crosshair values={this.state.crosshairValues}>
           <div className='crosshair-date'>
-            <p>{this.state.crosshairValues[0].x}</p>
+            <p>{this.convertDateToString(this.state.crosshairValues[0].z)}</p>
           </div>
         </Crosshair>
         </XYPlot>

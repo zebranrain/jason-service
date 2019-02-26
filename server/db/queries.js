@@ -68,7 +68,7 @@ function retrieveYearlyPrices(companyId) {
 }
 
 function retrieveFiveYearPrices(companyId) {
-  const startDate = new Date('02/09/2018');
+  const startDate = new Date('02/09/2014');
   const endDate = new Date('02/08/2019');
   return DailyPrice.findAll({where: { companyId, date: {$between: [startDate, endDate]}}})
   .then((prices) => {

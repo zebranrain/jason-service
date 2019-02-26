@@ -18,9 +18,9 @@ class App extends React.Component {
 
   async getPrices(timeframe) {
     let { ticker } = this.props.match.params;
-    console.log(stockPrices.toString());
     let data = await stockPrices(ticker, timeframe);
     let pricepoints = this.formatPrices(data.prices);
+    console.log(pricepoints);
     let company = data.name;
     this.setState({
       pricepoints,
@@ -44,11 +44,12 @@ class App extends React.Component {
   }
 
   formatPrices(pricepoints) {
-    return pricepoints.map((pricepoint) => {
+    return pricepoints.reverse().map((pricepoint, index) => {
       let date = new Date(pricepoint.date).getTime();
       return {
-        x: date,
-        y: pricepoint.price
+        x: index,
+        y: pricepoint.price,
+        z: date
       }
     })
   }
@@ -60,7 +61,7 @@ class App extends React.Component {
     return (
       <div>
         <Header company={this.state.company}/>
-        <Chart pricepoints={this.state.pricepoints} company={this.state.company}/>
+        <Chart pricepoints={this.state.pricepoints} company={this.state.company} timeframe={this.state.timeframe}/>
         <Timeframes changeTimeframe={this.changeTimeframe} timeframe={this.state.timeframe}/>
       </div>
     )
