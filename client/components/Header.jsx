@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/Header.scss';
 
 function Header({ company }) {
-  return <h1 className='header'>{company}</h1>
+  return <div className='header'>{company}</div>
 }
 
 export default Header;

@@ -16,21 +16,31 @@ class Chart extends React.Component {
     this.setState({crosshairValues: [value]});
   }
 
+  setPrice(pricepoints) {
+    if (this.state.crosshairValues[0].y) {
+      return this.state.crosshairValues[0].y;
+    }
+    if (pricepoints.length > 1) {
+      return pricepoints[0].y;
+    }
+    return '';
+  }
+
   render() {
     const { pricepoints, company } = this.props;
+    const price = this.setPrice(pricepoints);
     return (
       <div>
-      <Price price={this.state.crosshairValues[0].y} company={company}/>
+      <Price price={price} company={company}/>
       <XYPlot
       onMouseLeave={() => this.setState({crosshairValues: [{}]})}
         width = {1000}
         height = {300} >
-        <LineSeries
-          data={pricepoints} onNearestX={this.slider}/>
+        <LineSeries data={pricepoints} onNearestX={this.slider}/>
         <Crosshair values={this.state.crosshairValues}>
-        <div style={{background: 'black'}}>
-          <p>{this.state.crosshairValues[0].x}</p>
-        </div>
+          <div className='crosshair-date'>
+            <p>{this.state.crosshairValues[0].x}</p>
+          </div>
         </Crosshair>
         </XYPlot>
       </div>

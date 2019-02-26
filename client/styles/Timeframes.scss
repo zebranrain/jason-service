@@ -5,9 +5,8 @@ $open-sans: 'Open Sans', sans-serif;
 .timeframes {
   padding: 5px 5px 5px 0px;
   font-family: $open-sans;
-  border-width: 2px;
-  border-bottom-width:2px;
-  border-bottom-color:black;
+  border-bottom-width:1px;
+  border-bottom-color:#f4f4f5;
   border-bottom-style: solid;
   width: 1000px;
   font-size: 13px;
@@ -19,16 +18,16 @@ $open-sans: 'Open Sans', sans-serif;
 }
 
 .timeframe:hover {
-  color: blue;
+  color: #21ce99;
   cursor: pointer;
 }
 
 .selected-timeframe {
   padding: 5px 5px 5px 0px;
   margin: 10px 10px 10px 0px;
-  color: blue;
+  color: #21ce99;
   border-bottom-width:2px;
-  border-bottom-color:green;
+  border-bottom-color:#21ce99;
   border-bottom-style: solid
 }
 
