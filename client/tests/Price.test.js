@@ -10,4 +10,8 @@ describe("Price component", () => {
     const wrapper = shallow(<Price price={123.00}/>);
     expect(wrapper.exists()).toBe(true);
   });
+  test("price reflects price passed down from parent state", () => {
+    const wrapper = shallow(<Price price={123.00}/>);
+    expect(wrapper.text()).toEqual('123');
+  });
 });

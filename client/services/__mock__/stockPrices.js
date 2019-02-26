@@ -1,5 +1,5 @@
-const getPrices = () => {
-  let data = {
+export default stockPrices = () => {
+  return {
     name: 'Apple Inc.',
     prices: [
       {
@@ -27,13 +27,5 @@ const getPrices = () => {
         updatedAt: "2019-02-20T17:56:21.687Z",
       },
     ]
-  }
-  let pricepoints = context.formatPrices(data.prices);
-  let company = data.name;
-  this.setState({
-    pricepoints,
-    company
-  });
+  };
 }
-
-export default getPrices;

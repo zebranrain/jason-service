@@ -10,4 +10,13 @@ describe("Timeframes component", () => {
     const wrapper = shallow(<Timeframes/>);
     expect(wrapper.exists()).toBe(true);
   });
+  test("displays the appropriate timeframes", () => {
+    const wrapper = shallow(<Timeframes/>);
+    expect(wrapper.contains(<a>1D</a>)).toBe(true);
+    expect(wrapper.contains(<a>1W</a>)).toBe(true);
+    expect(wrapper.contains(<a>1M</a>)).toBe(true);
+    expect(wrapper.contains(<a>3M</a>)).toBe(true);
+    expect(wrapper.contains(<a>1Y</a>)).toBe(true);
+    expect(wrapper.contains(<a>5Y</a>)).toBe(true);
+  });
 });
