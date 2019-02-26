@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+$open-sans: 'Open Sans', sans-serif;
+
+.timeframes {
+  font-family: $open-sans;
+  height: 50px;
+}
+
+.timeframe {
+  padding: 5px;
+}
+
+.timeframe:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+// add onhover
+// add onclick
+
+
