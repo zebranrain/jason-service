@@ -45,7 +45,8 @@ class App extends React.Component {
   formatPrices(pricepoints) {
     return pricepoints.reverse().map((pricepoint, index) => {
       let date = new Date(pricepoint.date).getTime();
-      let price = parseFloat(pricepoint.price).toFixed(2);
+      let price = parseFloat(pricepoint.price);
+
       return {
         x: index,
         y: price,
