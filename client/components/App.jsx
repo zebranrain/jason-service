@@ -20,7 +20,6 @@ class App extends React.Component {
     let { ticker } = this.props.match.params;
     let data = await stockPrices(ticker, timeframe);
     let pricepoints = this.formatPrices(data.prices);
-    console.log(pricepoints);
     let company = data.name;
     this.setState({
       pricepoints,
@@ -46,7 +45,7 @@ class App extends React.Component {
   formatPrices(pricepoints) {
     return pricepoints.reverse().map((pricepoint, index) => {
       let date = new Date(pricepoint.date).getTime();
-      let price = parseFloat(pricepoint.price);
+      let price = parseFloat(pricepoint.price).toFixed(2);
       return {
         x: index,
         y: price,
