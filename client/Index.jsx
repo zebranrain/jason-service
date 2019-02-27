@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
 import { Route, Link, BrowserRouter as Router} from 'react-router-dom';
 
-const routing = (
+const PriceChart = (
   <Router>
     <div>
       <Route path="/:ticker" component={App} />
@@ -11,4 +10,4 @@ const routing = (
   </Router>
 )
 
-ReactDOM.render(routing, document.getElementById('root'));
+window.PriceChart = PriceChart;
