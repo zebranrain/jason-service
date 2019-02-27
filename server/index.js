@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors');
 const app = express();
 const port = 3001;
 const bodyParser = require('body-parser');
@@ -9,6 +10,7 @@ const translateError = {
   timeframeNotFound: { code: 404, message: "Sorry! We don't support the timeframe you requested." }
 }
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
