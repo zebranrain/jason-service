@@ -12,7 +12,7 @@ const translateError = {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/:ticker', express.static('./client/public'));
+app.use('/:ticker', express.static('./public'));
 
 app.get('/api/prices', async function(req, res) {
   console.log('Get request received!')
