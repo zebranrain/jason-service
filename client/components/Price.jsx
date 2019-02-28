@@ -2,8 +2,8 @@ import React from 'react';
 import 'odometer';
 import '../styles/Price.scss';
 
-
-// fix formatting
+/* A rolling price component that updates as price changes
+(i.e. as the crosshair in the Chart component moves) */
 
 function Price({ price }) {
   return (
