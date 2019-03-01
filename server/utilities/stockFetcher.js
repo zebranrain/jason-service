@@ -3,8 +3,12 @@ const key = require('../api-keys/alphaVantage');
 const fs = require('fs');
 const path = require('path');
 const _ = require('underscore');
-let baseUrl = `https://www.alphavantage.co/query?&apikey=${key}`;
+const baseUrl = `https://www.alphavantage.co/query?&apikey=${key}`;
 
+/* These functions are used to harvest actual historical stock data from teh AlphaVantage API.
+This was performed one time, and the responses were stored as JSON in text files in the data folder. */
+
+/* The 100 stock tickers we want. */
 const tickers = [
   "ATVI",
   "ADBE",
@@ -108,14 +112,18 @@ const tickers = [
   "WDAY"
 ];
 
+/* The timeseries we want. */
 const timeSeries = [
   'TIME_SERIES_INTRADAY',
   'TIME_SERIES_DAILY'
 ];
 
+/* The interval(s) we want. */
 const intervals = [
   '5min'
 ];
+
+/* Fetches historical prices from Morningstar API */
 
 function priceFetcher(ticker, timeSeries, url, interval) {
   let folder = folderMapper(timeSeries, interval);
@@ -140,6 +148,11 @@ function folderMapper(timeSeries, interval) {
   }
 }
 
+/* Loops through tickers, timeSeries, and interval(s),
+and schedules API calls every 13 seconds for every permutation
+of ticker/timeSeries/interval. I'm using 13 seconds because
+the API warns not to make more than 5 calls per minute. */
+
 function getAllPrices(url) {
   let timeout = 13000;
   tickers.forEach((ticker) => {
@@ -161,6 +174,8 @@ function getAllPrices(url) {
   })
 }
 
+/* Fetches a company from the AlphaVantage API */
+
 function fetchCompany(ticker) {
   let folder = path.join(__dirname, '../data/company');
   let url = baseUrl + `&function=SYMBOL_SEARCH&keywords=${ticker}`;
@@ -171,6 +186,9 @@ function fetchCompany(ticker) {
     });
   });
 }
+
+/* Loops through all tickers and fetches basic company info (e.g. name),
+scheduling API calls every 13 seconds. */
 
 function getAllCompanies() {
   let timeout = 0;

@@ -2,13 +2,13 @@ import React from 'react';
 import numeral from 'numeral';
 import '../styles/Change.scss';
 
-/* Presents price change information as a percentage and in dollars. */
+/* Presents price change information in dollars and as a percentage. */
 
 function Change({ openingPrice, currentPrice }) {
   if (openingPrice) {
-    let sign = openingPrice < currentPrice ? '+' : '';
-    let dollarChange = sign + numeral(currentPrice - openingPrice).format('$0,0.00');
-    let percentageChange = '(' + sign + numeral((currentPrice - openingPrice)/openingPrice).format('0.00%') + ')';
+    const sign = openingPrice < currentPrice ? '+' : '';
+    const dollarChange = sign + numeral(currentPrice - openingPrice).format('$0,0.00');
+    const percentageChange = '(' + sign + numeral((currentPrice - openingPrice)/openingPrice).format('0.00%') + ')';
 
     return (
       <div className='change'>

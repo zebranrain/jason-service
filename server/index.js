@@ -17,11 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/:ticker', express.static('./public'));
 
 app.get('/api/prices', async function(req, res) {
-  console.log('Get request received!')
   let { ticker, timeframe } = req.query;
   retrievePriceHistory(ticker, timeframe)
     .then(prices => res.json(prices))
     .catch(err => {
+      // pulls the code and message from the err.message object and translates them for human consumption
       let { code, message } = translateError[err.message];
       res.status(code).end(message);
     });

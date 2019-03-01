@@ -5,7 +5,7 @@ const path = require('path');
 const _ = require('underscore');
 const companyDir = path.join(__dirname, '../data/company');
 const dailyDir = path.join(__dirname, '../data/daily');
-let fiveMinDir = path.join(__dirname, '../data/five-min');
+const fiveMinDir = path.join(__dirname, '../data/five-min');
 const dailyLimit = new Date("2014-01-01");
 const fiveMinLimit = new Date("2019-02-03");
 const readdir = promisify(fs.readdir);
@@ -25,8 +25,8 @@ function forEachFileInDir(dir, callback) {
 }
 
 function mapToRecentPrices(prices, companyId, limit) {
-  let allPrices = _.map(prices, (data, date, dailyPrices) => {
-    let price = parseFloat(dailyPrices[date]['4. close']);
+  const allPrices = _.map(prices, (data, date, dailyPrices) => {
+    const price = parseFloat(dailyPrices[date]['4. close']);
     return { date, price, companyId };
   });
   return _.filter(allPrices, (price) => {
@@ -40,9 +40,9 @@ async function generateCompaniesFromFiles() {
   const companies = await _.map(files, async file => {
     let data = await readFile(`${companyDir}/${file}`, 'utf8');
     data = JSON.parse(data);
-    let company = data.bestMatches[0];
-    let ticker = company['1. symbol'];
-    let name = company['2. name'];
+    const company = data.bestMatches[0];
+    const ticker = company['1. symbol'];
+    const name = company['2. name'];
     return { ticker, name };
   });
   return Promise.all(companies);

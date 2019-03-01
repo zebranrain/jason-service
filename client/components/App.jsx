@@ -22,10 +22,10 @@ class App extends React.Component {
   Invoked on componentDidMount */
 
   async getPrices(timeframe) {
-    let { ticker } = this.props.match.params;
-    let data = await stockPrices(ticker, timeframe);
-    let pricepoints = formatPrices(data.prices);
-    let company = data.name;
+    const { ticker } = this.props.match.params;
+    const data = await stockPrices(ticker, timeframe);
+    const pricepoints = formatPrices(data.prices);
+    const company = data.name;
     this.setState({
       pricepoints,
       company
@@ -36,7 +36,7 @@ class App extends React.Component {
   Uses the setState callback to fetch prices for the new timeframe */
 
   changeTimeframe(event) {
-    let timeframe = translateTimeframe[event.target.innerText];
+    const timeframe = translateTimeframe[event.target.innerText];
     this.setState({ timeframe }, () => {
       this.getPrices(this.state.timeframe)
     });

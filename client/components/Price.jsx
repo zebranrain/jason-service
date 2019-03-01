@@ -3,7 +3,9 @@ import 'odometer';
 import '../styles/Price.scss';
 
 /* A rolling price component that updates as price changes
-(i.e. as the crosshair in the Chart component moves) */
+(i.e. as the crosshair in the Chart component moves). Presently,
+this uses the Odometer library, but ultimately it should be
+customized so that each digit moves independently to the next value. */
 
 function Price({ price }) {
   return (

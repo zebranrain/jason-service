@@ -9,7 +9,7 @@ class Chart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      crosshairValues: [{}] // initialized with expected data shape
+      crosshairValues: [{}] // initialized with expected data shape, an array with one object
     };
     this.slider = this.slider.bind(this);
   }
