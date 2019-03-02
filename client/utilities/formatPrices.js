@@ -12,6 +12,6 @@ export default function formatPrices(pricepoints) {
       x: index,
       y: price,
       z: date
-    }
+    };
   });
 }

@@ -10,106 +10,106 @@ This was performed one time, and the responses were stored as JSON in text files
 
 /* The 100 stock tickers we want. */
 const tickers = [
-  "ATVI",
-  "ADBE",
-  "AMD",
-  "ALXN",
-  "ALGN",
-  "GOOG",
-  "GOOGL",
-  "AMZN",
-  "AAL",
-  "AMGN",
-  "ADI",
-  "AAPL",
-  "AMAT",
-  "ASML",
-  "ADSK",
-  "ADP",
-  "BIDU",
-  "BIIB",
-  "BMRN",
-  "BKNG",
-  "AVGO",
-  "CDNS",
-  "CELG",
-  "CERN",
-  "CHTR",
-  "CHKP",
-  "CTAS",
-  "CSCO",
-  "CTXS",
-  "CTSH",
-  "CMCSA",
-  "COST",
-  "CSX",
-  "CTRP",
-  "DLTR",
-  "EBAY",
-  "EA",
-  "EXPE",
-  "FB",
-  "FAST",
-  "FISV",
-  "GILD",
-  "HAS",
-  "HSIC",
-  "IDXX",
-  "ILMN",
-  "INCY",
-  "INTC",
-  "INTU",
-  "ISRG",
-  "JBHT",
-  "JD",
-  "KLAC",
-  "LRCX",
-  "LBTYA",
-  "LBTYK",
-  "LULU",
-  "MAR",
-  "MXIM",
-  "MELI",
-  "MCHP",
-  "MU",
-  "MSFT",
-  "MDLZ",
-  "MNST",
-  "MYL",
-  "NTAP",
-  "NTES",
-  "NFLX",
-  "NVDA",
-  "NXPI",
-  "ORLY",
-  "PCAR",
-  "PAYX",
-  "PYPL",
-  "PEP",
-  "QCOM",
-  "REGN",
-  "ROST",
-  "SIRI",
-  "SWKS",
-  "SBUX",
-  "SYMC",
-  "SNPS",
-  "TMUS",
-  "TTWO",
-  "TSLA",
-  "TXN",
-  "KHC",
-  "FOX",
-  "FOXA",
-  "ULTA",
-  "UAL",
-  "VRSN",
-  "VRSK",
-  "VRTX",
-  "WBA",
-  "WDC",
-  "WLTW",
-  "WDAY"
+  'ATVI',
+  'ADBE',
+  'AMD',
+  'ALXN',
+  'ALGN',
+  'GOOG',
+  'GOOGL',
+  'AMZN',
+  'AAL',
+  'AMGN',
+  'ADI',
+  'AAPL',
+  'AMAT',
+  'ASML',
+  'ADSK',
+  'ADP',
+  'BIDU',
+  'BIIB',
+  'BMRN',
+  'BKNG',
+  'AVGO',
+  'CDNS',
+  'CELG',
+  'CERN',
+  'CHTR',
+  'CHKP',
+  'CTAS',
+  'CSCO',
+  'CTXS',
+  'CTSH',
+  'CMCSA',
+  'COST',
+  'CSX',
+  'CTRP',
+  'DLTR',
+  'EBAY',
+  'EA',
+  'EXPE',
+  'FB',
+  'FAST',
+  'FISV',
+  'GILD',
+  'HAS',
+  'HSIC',
+  'IDXX',
+  'ILMN',
+  'INCY',
+  'INTC',
+  'INTU',
+  'ISRG',
+  'JBHT',
+  'JD',
+  'KLAC',
+  'LRCX',
+  'LBTYA',
+  'LBTYK',
+  'LULU',
+  'MAR',
+  'MXIM',
+  'MELI',
+  'MCHP',
+  'MU',
+  'MSFT',
+  'MDLZ',
+  'MNST',
+  'MYL',
+  'NTAP',
+  'NTES',
+  'NFLX',
+  'NVDA',
+  'NXPI',
+  'ORLY',
+  'PCAR',
+  'PAYX',
+  'PYPL',
+  'PEP',
+  'QCOM',
+  'REGN',
+  'ROST',
+  'SIRI',
+  'SWKS',
+  'SBUX',
+  'SYMC',
+  'SNPS',
+  'TMUS',
+  'TTWO',
+  'TSLA',
+  'TXN',
+  'KHC',
+  'FOX',
+  'FOXA',
+  'ULTA',
+  'UAL',
+  'VRSN',
+  'VRSK',
+  'VRTX',
+  'WBA',
+  'WDC',
+  'WLTW',
+  'WDAY'
 ];
 
 /* The timeseries we want. */
@@ -125,35 +125,35 @@ const intervals = [
 
 /* Fetches historical prices from Morningstar API */
 
-function priceFetcher(ticker, timeSeries, url, interval) {
-  let folder = folderMapper(timeSeries, interval);
-  url += `function=${timeSeries}&symbol=${ticker}&outputsize=full`;
-  if (timeSeries === 'TIME_SERIES_INTRADAY') {
-    url += `&interval=${interval}`;
-  }
-  request(url, function(err, response, body) {
-    if (err) throw err;
-    fs.writeFile(`${folder}/${ticker}.txt`, body, function(err) {
-      if (err) throw err;
-    });
-  });
-}
-
-function folderMapper(timeSeries, interval) {
+const folderMapper = function(timeSeries, interval) {
   if (timeSeries === 'TIME_SERIES_INTRADAY' && interval === '5min') {
     return path.join(__dirname, '../data/five-min');
   }
   if (timeSeries === 'TIME_SERIES_DAILY') {
     return path.join(__dirname, '../data/daily');
   }
-}
+};
+
+const priceFetcher = function(ticker, timeSeries, url, interval) {
+  let folder = folderMapper(timeSeries, interval);
+  url += `function=${timeSeries}&symbol=${ticker}&outputsize=full`;
+  if (timeSeries === 'TIME_SERIES_INTRADAY') {
+    url += `&interval=${interval}`;
+  }
+  request(url, function(err, response, body) {
+    if (err) { throw err; }
+    fs.writeFile(`${folder}/${ticker}.txt`, body, function(err) {
+      if (err) { throw err; }
+    });
+  });
+};
 
 /* Loops through tickers, timeSeries, and interval(s),
 and schedules API calls every 13 seconds for every permutation
 of ticker/timeSeries/interval. I'm using 13 seconds because
 the API warns not to make more than 5 calls per minute. */
 
-function getAllPrices(url) {
+const getAllPrices = function(url) {
   let timeout = 13000;
   tickers.forEach((ticker) => {
     timeSeries.forEach((timeSeries) => {
@@ -161,41 +161,41 @@ function getAllPrices(url) {
         intervals.forEach((interval) => {
           setTimeout(() => {
             priceFetcher(ticker, timeSeries, url, interval);
-          }, timeout)
+          }, timeout);
           timeout += 13000;
         });
       } else {
         setTimeout(() => {
           priceFetcher(ticker, timeSeries, url);
-        }, timeout)
+        }, timeout);
         timeout += 13000;
       }
     });
-  })
-}
+  });
+};
 
 /* Fetches a company from the AlphaVantage API */
 
-function fetchCompany(ticker) {
+const fetchCompany = function(ticker) {
   let folder = path.join(__dirname, '../data/company');
   let url = baseUrl + `&function=SYMBOL_SEARCH&keywords=${ticker}`;
   request(url, function(err, response, body) {
-    if (err) throw err;
+    if (err) { throw err; }
     fs.writeFile(`${folder}/${ticker}.txt`, body, function(err) {
-      if (err) throw err;
+      if (err) { throw err; }
     });
   });
-}
+};
 
 /* Loops through all tickers and fetches basic company info (e.g. name),
 scheduling API calls every 13 seconds. */
 
-function getAllCompanies() {
+const getAllCompanies = function() {
   let timeout = 0;
   tickers.forEach((ticker) => {
     setTimeout(() => {
-      fetchCompany(ticker)
+      fetchCompany(ticker);
     }, timeout);
     timeout += 13000;
   });
-}
+};

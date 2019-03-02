@@ -3,7 +3,7 @@ import Chart from './Chart.jsx';
 import Timeframes from './Timeframes.jsx';
 import Header from './Header.jsx';
 import stockPrices from '../services/stockPrices.js';
-import translateTimeframe from '../utilities/translateTimeFrame.js';
+import translateTimeframe from '../utilities/translateTimeframe.js';
 import formatPrices from '../utilities/formatPrices.js';
 
 class App extends React.Component {
@@ -37,9 +37,11 @@ class App extends React.Component {
 
   changeTimeframe(event) {
     const timeframe = translateTimeframe[event.target.innerText];
-    this.setState({ timeframe }, () => {
-      this.getPrices(this.state.timeframe)
-    });
+    if (timeframe) {
+      this.setState({ timeframe }, () => {
+        this.getPrices(this.state.timeframe);
+      });
+    }
   }
 
   componentDidMount() {
@@ -49,11 +51,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header company={this.state.company}/>
-        <Chart pricepoints={this.state.pricepoints} company={this.state.company} timeframe={this.state.timeframe}/>
-        <Timeframes changeTimeframe={this.changeTimeframe} timeframe={this.state.timeframe}/>
+        <Header company={this.state.company} />
+        <Chart pricepoints={this.state.pricepoints} company={this.state.company} timeframe={this.state.timeframe} />
+        <Timeframes changeTimeframe={this.changeTimeframe} timeframe={this.state.timeframe} />
       </div>
-    )
+    );
   }
 }
 

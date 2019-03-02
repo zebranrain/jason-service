@@ -5,12 +5,12 @@ import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("Timeframes component", () => {
-  test("renders", () => {
+describe('Timeframes component', () => {
+  test('renders', () => {
     const wrapper = shallow(<Timeframes/>);
     expect(wrapper.exists()).toBe(true);
   });
-  test("displays the appropriate timeframes", () => {
+  test('displays the appropriate timeframes', () => {
     const wrapper = shallow(<Timeframes/>);
     expect(wrapper.contains(<a>1D</a>)).toBe(true);
     expect(wrapper.contains(<a>1W</a>)).toBe(true);

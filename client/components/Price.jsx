@@ -7,12 +7,13 @@ import '../styles/Price.scss';
 this uses the Odometer library, but ultimately it should be
 customized so that each digit moves independently to the next value. */
 
-function Price({ price }) {
+const Price = function ({ price }) {
   return (
-    <div className='price'>
-      <span>$</span><div className='odometer'>{price}</div>
+    <div className="price">
+      <span>$</span>
+      <div className="odometer">{price}</div>
     </div>
-  )
-}
+  );
+};
 
 export default Price;

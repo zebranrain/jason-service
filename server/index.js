@@ -6,9 +6,9 @@ const bodyParser = require('body-parser');
 const retrievePriceHistory = require('./db/queries.js');
 
 const translateError = {
-  companyNotFound: { code: 404, message: "Sorry! We don't have price records for that company." },
-  timeframeNotFound: { code: 404, message: "Sorry! We don't support the timeframe you requested." }
-}
+  companyNotFound: { code: 404, message: 'Sorry! We don\'t have price records for that company.' },
+  timeframeNotFound: { code: 404, message: 'Sorry! We don\'t support the timeframe you requested.' }
+};
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,4 +27,4 @@ app.get('/api/prices', async function(req, res) {
     });
 });
 
-app.listen(port, () => {console.log(`Listening on port ${port}!`)});
+app.listen(port, () => { console.log(`Listening on port ${port}!`); });
