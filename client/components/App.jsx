@@ -19,7 +19,7 @@ class App extends React.Component {
   }
 
   /* Fetches prices from the server and updates state accordingly
-  Invoked on componentDidMount */
+  Invoked on componentDidMount. */
 
   async getPrices(timeframe) {
     const { ticker } = this.props.match.params;
