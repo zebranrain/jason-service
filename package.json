@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jest --env=jsdom",
-    "start": "nodemon server/index.js",
+    "start": "node server/index.js",
     "build": "webpack -d --watch",
     "seed": "node server/db/seed.js"
   },
