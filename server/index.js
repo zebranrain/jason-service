@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 var cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 80;
 const bodyParser = require('body-parser');
 const retrievePriceHistory = require('./db/queries.js');
 
