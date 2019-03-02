@@ -10,7 +10,8 @@
   "scripts": {
     "test": "jest --env=jsdom",
     "start": "nodemon server/index.js",
-    "build": "webpack -d --watch"
+    "build": "webpack -d --watch",
+    "seed": "node server/db/seed.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
