@@ -1,6 +1,6 @@
 import React from 'react';
-import 'odometer';
 import '../styles/Price.scss';
+import Odometer from 'react-odometerjs';
 
 /* A rolling price component that updates as price changes
 (i.e. as the crosshair in the Chart component moves). Presently,
@@ -11,7 +11,11 @@ const Price = function ({ price }) {
   return (
     <div className="price">
       <span>$</span>
-      <div className="odometer">{price}</div>
+      <Odometer
+        format="(.ddd).dd"
+        duration={500}
+        value={price}
+      />
     </div>
   );
 };

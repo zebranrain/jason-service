@@ -10,13 +10,14 @@ describe('Timeframes component', () => {
     const wrapper = shallow(<Timeframes/>);
     expect(wrapper.exists()).toBe(true);
   });
-  test('displays the appropriate timeframes', () => {
+  test('displays the appropriate timeframes, initialized with the "timeframe" class', () => {
     const wrapper = shallow(<Timeframes/>);
-    expect(wrapper.contains(<a>1D</a>)).toBe(true);
-    expect(wrapper.contains(<a>1W</a>)).toBe(true);
-    expect(wrapper.contains(<a>1M</a>)).toBe(true);
-    expect(wrapper.contains(<a>3M</a>)).toBe(true);
-    expect(wrapper.contains(<a>1Y</a>)).toBe(true);
-    expect(wrapper.contains(<a>5Y</a>)).toBe(true);
+    console.log(wrapper.find('a'));
+    expect(wrapper.contains(<a className="timeframe">1D</a>)).toBe(true);
+    expect(wrapper.contains(<a className="timeframe">1W</a>)).toBe(true);
+    expect(wrapper.contains(<a className="timeframe">1M</a>)).toBe(true);
+    expect(wrapper.contains(<a className="timeframe">3M</a>)).toBe(true);
+    expect(wrapper.contains(<a className="timeframe">1Y</a>)).toBe(true);
+    expect(wrapper.contains(<a className="timeframe">5Y</a>)).toBe(true);
   });
 });

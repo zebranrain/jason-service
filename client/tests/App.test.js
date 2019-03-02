@@ -2,7 +2,6 @@ import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
 import App from '../components/App.jsx';
 import Adapter from 'enzyme-adapter-react-16';
-import { doesNotReject } from 'assert';
 
 jest.mock('../services/stockPrices.js');
 
