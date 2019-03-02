@@ -1,5 +1,6 @@
+require('dotenv').config();
 const request = require('request');
-const key = require('../api-keys/alphaVantage');
+const key = process.env.ALPHA_VANTAGE_KEY;
 const fs = require('fs');
 const path = require('path');
 const _ = require('underscore');

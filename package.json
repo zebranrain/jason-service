@@ -10,11 +10,13 @@
   "scripts": {
     "test": "jest --env=jsdom",
     "start": "nodemon server/index.js",
-    "build": "webpack -d --watch"
+    "build": "webpack -d --watch",
+    "seed": "node server/db/seed.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "eslint-plugin-prettier": "^3.0.1",
     "jquery": "^3.3.1",
     "moment": "^2.24.0",

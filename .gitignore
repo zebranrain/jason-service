@@ -23,8 +23,8 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 public/
 
-# API Keys
-api-keys/alphaVantage.js
+# .env
+.env
 
 # Data
 data/
