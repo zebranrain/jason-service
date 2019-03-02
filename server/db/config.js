@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
+const dotenv = require('dotenv');
+dotenv.config();
 
-const sequelize = new Sequelize('stock-prices', 'postgres', 'postgres', {
-  host: 'localhost',
+const sequelize = new Sequelize('stock-prices', process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+  host: process.env.HOST,
   dialect: 'postgres',
   pool: {
     max: 5,
