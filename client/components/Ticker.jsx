@@ -22,27 +22,27 @@ const Ticker = function ({ price }) {
 
     if (value === '.' || value === ',') {
       return (
-        <span className='digit' key={index}>
+        <span className='symbol' key={index}>
           <div>{value}</div>
         </span>
       );
     }
 
     // convert value to pixel displacement
-    value *= -42;
+    value = -(378 - (value * 42));
 
     return (
-      <span className='digit' style={{ transform: `translateY(${value}px)` }} key={index}>
-        <div>0</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
+      <span className='digit' key={index} style={{ transform: `translateY(${value}px)` }}>
         <div>9</div>
+        <div>8</div>
+        <div>7</div>
+        <div>6</div>
+        <div>5</div>
+        <div>4</div>
+        <div>3</div>
+        <div>2</div>
+        <div>1</div>
+        <div>0</div>
       </span>
     );
   });
@@ -50,7 +50,7 @@ const Ticker = function ({ price }) {
 
   return (
     <div className='ticker'>
-      <span className='digit'>$</span>
+      <span className='symbol'>$</span>
       {digitDivs}
     </div>
   );
