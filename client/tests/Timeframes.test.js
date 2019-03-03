@@ -12,7 +12,6 @@ describe('Timeframes component', () => {
   });
   test('displays the appropriate timeframes, initialized with the "timeframe" class', () => {
     const wrapper = shallow(<Timeframes/>);
-    console.log(wrapper.find('a'));
     expect(wrapper.contains(<a className="timeframe">1D</a>)).toBe(true);
     expect(wrapper.contains(<a className="timeframe">1W</a>)).toBe(true);
     expect(wrapper.contains(<a className="timeframe">1M</a>)).toBe(true);

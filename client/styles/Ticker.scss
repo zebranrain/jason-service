@@ -4,16 +4,19 @@ $open-sans: 'Open Sans', sans-serif;
 
 .digit {
   font-family: $open-sans;
-  line-height: 20px;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.7px;
+  line-height: 42px;
   margin: 0px;
   padding: 0px;
   transition-property: transform;
-  transition-duration: 500ms;
-  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(.13, .52, .5, .89);
   float: left;
 }
 
 .ticker {
   overflow: hidden;
-  height: 20px;
+  height: 42px;
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import '../styles/Ticker.scss';
 
-// map digits to an array of their y transform values
-// return a 'digit' div, using the y value of that digit
-//
+/* A rolling price component that updates as price changes
+(i.e. as the crosshair in the Chart component moves). Presently,
+this uses the Odometer library, but ultimately it should be
+customized so that each digit moves independently to the next value. */
 
 const Ticker = function ({ price }) {
 
@@ -19,24 +20,16 @@ const Ticker = function ({ price }) {
 
   const digitDivs = digits.map((value, index) => {
 
-    if (value === '.') {
+    if (value === '.' || value === ',') {
       return (
         <span className='digit' key={index}>
-          <div>.</div>
-        </span>
-      );
-    }
-
-    if (value === ',') {
-      return (
-        <span className='digit' key={index}>
-          <div>,</div>
+          <div>{value}</div>
         </span>
       );
     }
 
     // convert value to pixel displacement
-    value *= -20;
+    value *= -42;
 
     return (
       <span className='digit' style={{ transform: `translateY(${value}px)` }} key={index}>

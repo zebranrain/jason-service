@@ -12,9 +12,7 @@ const sequelize = new Sequelize('stock-prices', process.env.DB_USERNAME, process
     acquire: 30000,
     idle: 10000
   },
-  // logging: false
+  logging: false
 });
-
-console.log('port', process.env.DB_PORT);
 
 module.exports = sequelize;
