@@ -10,9 +10,21 @@ $open-sans: 'Open Sans', sans-serif;
   line-height: 42px;
   margin: 0px;
   padding: 0px;
+  transform: translateY(-378px);
   transition-property: transform;
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(.13, .52, .5, .89);
+  float: left;
+}
+
+.symbol {
+  font-family: $open-sans;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.7px;
+  line-height: 42px;
+  margin: 0px;
+  padding: 0px;
   float: left;
 }
 

@@ -11,14 +11,14 @@ describe('Price component', () => {
     const wrapper = shallow(<Ticker price={123.00}/>);
     expect(wrapper.exists()).toBe(true);
   });
-  test('for prices in hundreds: renders a span element for each digit, the decimal, and the dollar sign', () => {
+  test('for prices in hundreds: renders a span element for each digit', () => {
     const wrapper = shallow(<Ticker price={123.00}/>);
     console.log(wrapper.find('.digit').debug());
-    expect(wrapper.find('.digit')).toHaveLength(7);
+    expect(wrapper.find('.digit')).toHaveLength(5);
   });
-  test('for prices in thousands: renders a span element for each digit, the comma, the decimal, and the dollar sign', () => {
+  test('for prices in thousands: renders a span element for each digit', () => {
     const wrapper = shallow(<Ticker price={1234.00}/>);
     console.log(wrapper.find('.digit').debug());
-    expect(wrapper.find('.digit')).toHaveLength(9);
+    expect(wrapper.find('.digit')).toHaveLength(6);
   });
 });
