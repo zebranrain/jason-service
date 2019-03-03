@@ -1,7 +1,7 @@
 import React from 'react';
 import { XYPlot, LineSeries, Crosshair } from 'react-vis';
 import '../styles/Chart.scss';
-import Price from './Price.jsx';
+import Ticker from './Ticker.jsx';
 import Change from './Change.jsx';
 import convertDateToString from '../utilities/convertDateToString';
 
@@ -40,7 +40,7 @@ class Chart extends React.Component {
     );
     return (
       <div>
-        <Price price={price} company={company} />
+        <Ticker price={price} />
         <Change openingPrice={openingPrice} currentPrice={price} />
         <XYPlot
           onMouseLeave={() => this.setState({ crosshairValues: [{}] })}
