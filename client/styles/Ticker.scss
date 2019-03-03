@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+$open-sans: 'Open Sans', sans-serif;
+
+.digit {
+  font-family: $open-sans;
+  line-height: 20px;
+  margin: 0px;
+  padding: 0px;
+  transition-property: transform;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  float: left;
+}
+
+.ticker {
+  overflow: hidden;
+  height: 20px;
+}
