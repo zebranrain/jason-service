@@ -11,7 +11,7 @@ const Change = function ({ openingPrice, currentPrice }) {
     const percentageChange = '(' + sign + numeral((currentPrice - openingPrice) / openingPrice).format('0.00%') + ')';
     return (
       <div className="change">
-        <span>{dollarChange}</span>  <span>{percentageChange}</span>
+        <span className="change__detail">{dollarChange}</span><span className="change__detail">{percentageChange}</span>
       </div>
     );
   }

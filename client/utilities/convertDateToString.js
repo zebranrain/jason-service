@@ -5,10 +5,10 @@ import moment from 'moment';
 
 export default function convertDateToString(ms, timeframe) {
   if (timeframe === 'day') {
-    return `${moment(ms).format('h:mm a')} ET`;
+    return `${moment(ms).format('h:mm A')} ET`;
   }
   if (timeframe === 'week') {
-    return `${moment(ms).format('h:mm a, MMM D')} ET`;
+    return `${moment(ms).format('h:mm A, MMM D')} ET`;
   }
   return moment(ms).format('MMM D, YYYY');
 }

@@ -17,6 +17,7 @@ class Chart extends React.Component {
   /* Crosshair movement event handler */
   slider(value, event) {
     this.setState({ crosshairValues: [value] });
+    console.log(event);
   }
 
   /* Determines the price that should be passed down to the Price component */
@@ -38,22 +39,23 @@ class Chart extends React.Component {
       this.state.crosshairValues[0].z,
       timeframe
     );
+
     return (
       <div>
         <Ticker price={price} />
         <Change openingPrice={openingPrice} currentPrice={price} />
         <XYPlot
           onMouseLeave={() => this.setState({ crosshairValues: [{}] })}
-          width={1000}
-          height={300}
+          width={676}
+          height={196}
         >
           <LineSeries
             data={pricepoints}
             onNearestX={this.slider}
             color="#21ce99"
           />
-          <Crosshair values={this.state.crosshairValues}>
-            <div className="crosshair-date">
+          <Crosshair values={this.state.crosshairValues} style={{ line: { height: '160px' } }}>
+            <div>
               <p>{date}</p>
             </div>
           </Crosshair>
