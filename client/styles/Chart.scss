@@ -1,4 +1,7 @@
 @import "~react-vis/dist/style";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+$open-sans: "Open Sans", sans-serif;
 
 .rv-crosshair__line {
   background: lightgrey;
@@ -6,6 +9,9 @@
 }
 
 .crosshair-date {
+  font-display: auto;
+  font-family: $open-sans;
+  font-display: auto;
   color: lightgrey;
   font-size: 14px;
 }
