@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest --env=jsdom",
     "start": "node server/index.js",
-    "build": "webpack -d --watch",
+    "build": "webpack -p",
     "seed": "node server/db/seed.js"
   },
   "dependencies": {
