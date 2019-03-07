@@ -62,7 +62,7 @@ class Chart extends React.Component {
         <Change openingPrice={openingPrice} currentPrice={price} />
         <XYPlot
           width={676}
-          height={196}
+          height={246}
           onMouseLeave={() => this.setState({ crosshairValues: [{}], markerData: [{}], crosshairDisplay: 'none' })}
         >
           <LineSeries
