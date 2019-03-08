@@ -12,16 +12,14 @@ The chart offers some compelling interactivity: As the user hovers over the char
 
 Also displayed are dynamic change indicators, showing the dollar and percentage change in the price from the beginning of the period to the crosshair location. 
 
-> GIF
+![Increases and Decreases](https://github.com/zebranrain/jason-service/blob/master/images/03_increase-decrease.gif)
 
-By default (i.e. if the user isn't moving the mouse in the chart area), the change values reflect the change from the beginning to the end of the selected timeframe. The whole chart responds to these values as well, by showing a green line series if the price increased over the timeframe and a red line if it decreased. 
-
->GIF
+By default (i.e. if the user isn't moving the mouse in the chart area), the change values reflect the change from the beginning to the end of the selected timeframe. The whole chart responds to these values as well, by showing a green line series if the price increased over the timeframe and a red line if it decreased.
 
 ## Related Projects
 
-  - https://github.com/zebranrain/jason-service-2
-  - https://github.com/zebranrain/tj-service
+  - https://github.com/zebranrain/jason-service-2 > A duplicate using the Odometer package
+  - https://github.com/zebranrain/tj-service > An Analyst Recommendation widget
 
 ## Table of Contents
 
@@ -32,6 +30,8 @@ By default (i.e. if the user isn't moving the mouse in the chart area), the chan
 ## Usage
 
 > To render data for a particular ticker, simply add the desired ticker symbol (e.g. AAPL) to the root URL. React Router will ensure that you aren't redirected and a GET request will be sent via Axios to the endpoint, with the ticker symbol and current timeframe as query parameters.
+
+![Ticker API](https://github.com/zebranrain/jason-service/blob/master/images/04_ticker-api.gif)
 
 > When the API receives the request, it queries a Postgres database using the provided ticker and timeframe, retrieving price data at the appropriate interval and back to the appropriate date. For the 1D and 1W intervals, records are fetched at a 5-minute interval. For the 1M, 3M, 1Y, and 5Y intervals, records are fetched at a 1-day interval. Note that for the 1W interval, only 10-minute intervals are sent back to the client. Likewise, for the 5Y interval, only 1-week intervals are sent back. This is simply because smaller intervals aren't visually useful at those scales.
 
