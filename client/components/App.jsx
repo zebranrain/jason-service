@@ -5,6 +5,7 @@ import Header from './Header.jsx';
 import stockPrices from '../services/stockPrices.js';
 import translateTimeframe from '../utilities/translateTimeframe.js';
 import formatPrices from '../utilities/formatPrices.js';
+import setColor from '../utilities/setColor.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class App extends React.Component {
     this.state = {
       pricepoints: [],
       timeframe: 'day',
-      company: ''
+      company: '',
+      gain: true
     };
     this.changeTimeframe = this.changeTimeframe.bind(this);
     this.getPrices = this.getPrices.bind(this);
@@ -26,9 +28,11 @@ class App extends React.Component {
     const data = await stockPrices(ticker, timeframe);
     const pricepoints = formatPrices(data.prices);
     const company = data.name;
+    const gain = pricepoints[pricepoints.length - 1].y > pricepoints[0].y;
     this.setState({
       pricepoints,
-      company
+      company,
+      gain
     });
   }
 
@@ -49,11 +53,12 @@ class App extends React.Component {
   }
 
   render() {
+    const { pricepoints, company, timeframe, gain } = this.state;
     return (
       <div>
         <Header company={this.state.company} />
-        <Chart pricepoints={this.state.pricepoints} company={this.state.company} timeframe={this.state.timeframe} />
-        <Timeframes changeTimeframe={this.changeTimeframe} timeframe={this.state.timeframe} />
+        <Chart pricepoints={pricepoints} company={company} timeframe={timeframe} gain={gain} />
+        <Timeframes changeTimeframe={this.changeTimeframe} timeframe={timeframe} gain={gain} />
       </div>
     );
   }

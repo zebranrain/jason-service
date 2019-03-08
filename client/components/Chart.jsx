@@ -10,8 +10,8 @@ class Chart extends React.Component {
     super(props);
     this.state = {
       crosshairValues: [{}], // initialized with expected data shape, an array with one object
-      markerData: [{ x: 1, y: 1, size: 1 }],
-      crosshairDisplay: 'block' // toggles between 'block' and 'none' to turn off crosshair when mouse leaves chart
+      markerData: [{ x: null, y: null, size: 1 }],
+      crosshairDisplay: 'none' // toggles between 'block' and 'none' to turn off crosshair when mouse leaves chart
     };
     this.slider = this.slider.bind(this);
   }
@@ -37,9 +37,10 @@ class Chart extends React.Component {
   }
 
   render() {
-    const { pricepoints, timeframe } = this.props;
+    const { pricepoints, timeframe, gain } = this.props;
     const openingPrice = pricepoints[0] ? pricepoints[0].y : 0;
     const price = this.setPrice(pricepoints);
+    const color = gain ? '#21ce99' : '#f45531';
     const date = convertDateToString(
       this.state.crosshairValues[0].z,
       timeframe
@@ -47,12 +48,12 @@ class Chart extends React.Component {
 
     const crossLineStyle = {
       line: {
-        height: '160px',
+        height: '210px',
         display: this.state.crosshairDisplay
       }
     };
 
-    const toggleVisibility = {
+    const visibility = {
       display: this.state.crosshairDisplay
     };
 
@@ -63,24 +64,24 @@ class Chart extends React.Component {
         <XYPlot
           width={676}
           height={246}
-          onMouseLeave={() => this.setState({ crosshairValues: [{}], markerData: [{}], crosshairDisplay: 'none' })}
+          onMouseLeave={() => this.setState({ crosshairValues: [{}], crosshairDisplay: 'none' })}
         >
           <LineSeries
             data={pricepoints}
             onNearestX={this.slider}
-            color="#21ce99"
+            color={color}
           />
           <MarkSeries
             className="mark-series"
             sizeRange={[1, 5]}
             data={this.state.markerData}
             stroke="white"
-            fill="#21ce99"
+            fill={color}
             strokeWidth={2}
-            style={toggleVisibility}
+            style={visibility}
           />
           <Crosshair values={this.state.crosshairValues} style={crossLineStyle}>
-            <div style={toggleVisibility}>
+            <div style={visibility}>
               <p>{date}</p>
             </div>
           </Crosshair>

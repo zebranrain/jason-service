@@ -11,7 +11,7 @@
   transform: translateY(-378px);
   transition-property: transform;
   transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(.13, .52, .5, .89);
+  transition-timing-function: ease;
   float: left;
 }
 
