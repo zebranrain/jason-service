@@ -36,6 +36,25 @@ class Chart extends React.Component {
     return '';
   }
 
+  /* If the crosshair is visible, show the marker that tracks along with it.
+  Otherwise, don't. It would of course be simpler to toggle the CSS display property of the marker,
+  but even if it's invisible, its existence affects the x/y scale of the chart. */
+  renderMarker(color) {
+    if (this.state.crosshairDisplay === 'none') {
+      return <div></div>;
+    }
+    return (
+      <MarkSeries
+        className="mark-series"
+        sizeRange={[1, 5]}
+        data={this.state.markerData}
+        stroke="white"
+        fill={color}
+        strokeWidth={2}
+      />
+    );
+  }
+
   render() {
     const { pricepoints, timeframe, gain } = this.props;
     const openingPrice = pricepoints[0] ? pricepoints[0].y : 0;
@@ -73,15 +92,7 @@ class Chart extends React.Component {
             onNearestX={this.slider}
             color={color}
           />
-          <MarkSeries
-            className="mark-series"
-            sizeRange={[1, 5]}
-            data={this.state.markerData}
-            stroke="white"
-            fill={color}
-            strokeWidth={2}
-            style={visibility}
-          />
+          {this.renderMarker(color)}
           <Crosshair values={this.state.crosshairValues} style={crossLineStyle}>
             <div style={visibility}>
               <p>{date}</p>
