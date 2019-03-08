@@ -24,8 +24,18 @@ app.get('/api/prices', async function(req, res) {
     .catch(err => {
       // pulls the code and message from the err.message object and translates them for human consumption
       let { code, message } = translateError[err.message];
-      res.status(code).end(message);
+      res.status(code);
+      res.send(message);
     });
+});
+
+app.get('/', function(req, res) {
+  res.send('Please specify a ticker in the URL!');
+});
+
+app.get('*', function(req, res) {
+  res.status(404);
+  res.send('Sorry -- that page wasn\'t found!');
 });
 
 app.listen(port, () => { console.log(`Listening on port ${port}!`); });

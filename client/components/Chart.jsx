@@ -41,11 +41,10 @@ class Chart extends React.Component {
     const openingPrice = pricepoints[0] ? pricepoints[0].y : 0;
     const price = this.setPrice(pricepoints);
     const color = gain ? '#21ce99' : '#f45531';
-    const date = convertDateToString(
-      this.state.crosshairValues[0].z,
-      timeframe
-    );
+    const date = convertDateToString(this.state.crosshairValues[0].z, timeframe);
 
+    /* Sets the crosshair to be the full height of the chart
+    and respond to the crosshair visibility state property */
     const crossLineStyle = {
       line: {
         height: '210px',
@@ -56,6 +55,9 @@ class Chart extends React.Component {
     const visibility = {
       display: this.state.crosshairDisplay
     };
+
+    /* The MarkSeries comonent below is the dot that moves along the line chart with the crosshair.
+    Unfortunately, it can't be rendered as a subcomponent of the crosshair. */
 
     return (
       <div>
