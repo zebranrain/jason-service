@@ -2,7 +2,7 @@
 
 An interactive stock chart. It's like the one on Robinhood.com, but like its eponymous sidekick, not quite as handsome. It makes calls to an endpoint serving historical stock price data and renders this data as a simple line chart. The user can toggle between timeframes (e.g. 1D, 1W), and the chart is dynamically updated with datapoints for that timeframe.
 
-> insert a GIF here
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
 For a charting library, Littlejohn uses react-vis (//add link). While a little light on documentation, react-vis is a powerful and flexible library that looks pretty great right out of the box. As the name implies, it's fully integrated into the React API. Incidentally, that makes it perfect for this project, which is built in React.
 
@@ -33,27 +33,24 @@ By default (i.e. if the user isn't moving the mouse in the chart area), the chan
 
 ## Usage
 
-> To render data for a particular ticker, simply add the desired ticker symbol (e.g. AAPL) to the root URL. React Router will ensure that you aren't redirected and a GET request will be sent to the endpoint with the ticker symbol and current timeframe as query parameters.
+> To render data for a particular ticker, simply add the desired ticker symbol (e.g. AAPL) to the root URL. React Router will ensure that you aren't redirected and a GET request will be sent via Axios to the endpoint, with the ticker symbol and current timeframe as query parameters.
 
 > When the API receives the request, it queries a Postgres database using the provided ticker and timeframe, retrieving price data at the appropriate interval and back to the appropriate date. For the 1D and 1W intervals, records are fetched at a 5-minute interval. For the 1M, 3M, 1Y, and 5Y intervals, records are fetched at a 1-day interval. Note that for the 1W interval, only 10-minute intervals are sent back to the client. Likewise, for the 5Y interval, only 1-week intervals are sent back. This is simply because smaller intervals aren't visually useful at those scales.
 
-> Once you receive price data back from the API, it's reformatted into x and y values for consumption by react-vis and passed as props to the chart. That's it!
+> Once you receive price data back from the API, it's reformatted into x and y values for easy consumption by react-vis and passed as props to the chart. That's it!
 
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
-- Node 6.13.0
-- etc
+- Node 8.12.0
+- Postgres
 
-## Development
-
-### Installing Dependencies
+## Installing Dependencies
 
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
 ```
 
