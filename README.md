@@ -1,22 +1,22 @@
 # Littlejohn (a Robinhood mock)
 
-> An interactive stock chart. Like the one on Robinhood.com, but not quite as handsome. It makes calls to an endpoint serving historical stock price data and renders this data as a simple line chart. The user can toggle between timeframes (e.g. 1D, 1W), and the chart is dynamically updated with datapoints for that timeframe.
+An interactive stock chart. It's like the one on Robinhood.com, but like its eponymous sidekick, not quite as handsome. It makes calls to an endpoint serving historical stock price data and renders this data as a simple line chart. The user can toggle between timeframes (e.g. 1D, 1W), and the chart is dynamically updated with datapoints for that timeframe.
 
 > insert a GIF here
 
-> For a charting library, Littlejohn uses react-vis (//add link). While a little light on documentation, react-vis is a powerful and flexible library that looks pretty great right out of the box. As the name implies, it's fully integrated into the React API. Incidentally, that makes it perfect for this project, which is built in React.
+For a charting library, Littlejohn uses react-vis (//add link). While a little light on documentation, react-vis is a powerful and flexible library that looks pretty great right out of the box. As the name implies, it's fully integrated into the React API. Incidentally, that makes it perfect for this project, which is built in React.
 
 > GIF
 
-> The chart offers some compelling interactivity: As the user hovers over the chart area, a vertical line (react-vis calls it a 'crosshair') moves with the cursor, reporting the date and/or time associated with each point. As the crosshair moves, an animated price ticker rapidly updates, reporting the price at each point.
+The chart offers some compelling interactivity: As the user hovers over the chart area, a vertical line (react-vis calls it a 'crosshair') moves with the cursor, reporting the date and/or time associated with each point. As the crosshair moves, an animated price ticker rapidly updates, reporting the price at each point.
 
 > GIF
 
-> Also displayed are dynamic change indicators, showing the dollar and percentage change in the price from the beginning of the period to the crosshair location. 
+Also displayed are dynamic change indicators, showing the dollar and percentage change in the price from the beginning of the period to the crosshair location. 
 
 > GIF
 
-> By default (i.e. if the user isn't moving the mouse in the chart area), the change values reflect the change from the beginning to the end of the selected timeframe. The whole chart responds to these values as well, by showing a green line series if the price increased over the timeframe and a red line if it decreased. 
+By default (i.e. if the user isn't moving the mouse in the chart area), the change values reflect the change from the beginning to the end of the selected timeframe. The whole chart responds to these values as well, by showing a green line series if the price increased over the timeframe and a red line if it decreased. 
 
 >GIF
 
