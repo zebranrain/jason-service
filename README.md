@@ -1,8 +1,8 @@
 # Littlejohn (a Robinhood mock)
 
-Littlejohn is an interactive stock chart, modeled after the one at Robinhood.com. While it may not be as handsome as Robinhood, it's every bit as brave and true.
-
 ![Toggling Timeframes](https://github.com/zebranrain/jason-service/blob/master/images/01_timeframes.gif)
+
+Littlejohn is an interactive stock chart, modeled after the one at Robinhood.com. While it may not be as handsome as Robinhood, it's every bit as brave and true.
 
 It makes calls to an endpoint serving historical stock price data and renders this data as a simple line chart. The user can toggle between timeframes (e.g. 1D, 1W), and the chart is dynamically updated with datapoints for that timeframe.
 
