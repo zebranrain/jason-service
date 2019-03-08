@@ -1,5 +1,5 @@
 # Littlejohn
-## (A Robinhood mock)
+**_A Robinhood mock_**
 
 ![Toggling Timeframes](https://github.com/zebranrain/jason-service/blob/master/images/01_timeframes.gif)
 
