@@ -1,8 +1,9 @@
 # Littlejohn (a Robinhood mock)
+### An interactive stock chart. Similar to Robinhood.com, but like the eponymous sidekick, not quite as handsome. 
 
 ![Toggling Timeframes](https://github.com/zebranrain/jason-service/blob/master/images/01_timeframes.gif)
 
-An interactive stock chart. It's like the one on Robinhood.com, but like its eponymous sidekick, not quite as handsome. It makes calls to an endpoint serving historical stock price data and renders this data as a simple line chart. The user can toggle between timeframes (e.g. 1D, 1W), and the chart is dynamically updated with datapoints for that timeframe.
+It makes calls to an endpoint serving historical stock price data and renders this data as a simple line chart. The user can toggle between timeframes (e.g. 1D, 1W), and the chart is dynamically updated with datapoints for that timeframe.
 
 For a charting library, Littlejohn uses react-vis (//add link). While a little light on documentation, react-vis is a powerful and flexible library that looks pretty great right out of the box. As the name implies, it's fully integrated into the React API. Incidentally, that makes it perfect for this project, which is built in React.
 
