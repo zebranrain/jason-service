@@ -1,6 +1,6 @@
 # Littlejohn (a Robinhood mock)
 
-### Littlejohn is an interactive stock chart, modeled after the one at Robinhood.com. While it may not be as handsome as Robinhood, it's every bit as brave and true.
+Littlejohn is an interactive stock chart, modeled after the one at Robinhood.com. While it may not be as handsome as Robinhood, it's every bit as brave and true.
 
 ![Toggling Timeframes](https://github.com/zebranrain/jason-service/blob/master/images/01_timeframes.gif)
 
