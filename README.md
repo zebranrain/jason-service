@@ -1,5 +1,5 @@
 # Littlejohn (a Robinhood mock)
-### An interactive stock chart. Similar to Robinhood.com, but like the eponymous sidekick, not quite as handsome. 
+> It's an interactive stock chart similar to Robinhood.com. Like the eponymous sidekick, it's not quite as handsome. 
 
 ![Toggling Timeframes](https://github.com/zebranrain/jason-service/blob/master/images/01_timeframes.gif)
 
